@@ -9,21 +9,26 @@
 ## -- = -cy -dxy
 ## dt
 ##
-#Where a, b, c, d are 
-#Species X is prey, Y is predator
+#Where a, b, c, d are species dependent constants 
+#Species X is  prey population and  Y is predator population
 import numpy as np
 import matplotlib.pyplot as plt
 
 
 dt= .001 #timestep
-Xinit = .1 #initial condition
-Yinit = .1 #initial condition
+timesteps = 60000 #number of timesteps
+
+Xinit = 2 #initial condition
+Yinit = 13#initial condition
+
 #equation parameters
 a= 1
 b=1
 c= 1
 d= 1
-timesteps = 10000
+
+
+
 T= np.arange(timesteps+1)
 X= np.empty(timesteps+1)
 Y= np.empty(timesteps+1)
@@ -32,9 +37,14 @@ Y= np.empty(timesteps+1)
 X[0]=Xinit
 Y[0]=Yinit
 
+
+# solution using for loop, forwards differences
 for i in range(0,timesteps):
     X[i+1]= dt*(a* X[i] - b*X[i]*Y[i]) +X[i]
     Y[i+1]= dt*(-c* Y[i] + d*Y[i]*X[i]) +Y[i]
+
+
+
 
 
 
@@ -42,8 +52,9 @@ fig1 = plt.figure()
 ax1 = fig1.add_subplot(111)
 ax1.plot(T,X)
 ax1.plot(T,Y)
+plt.xlabel('Time')
+plt.ylabel('Population size')
+plt.title('Predator - prey model, forwards differences')
 plt.show()
 
-fig2 = plt.figure()
-ax2 = fig2.add_subplot(111)
-ax2.plot(Y,X)
+
